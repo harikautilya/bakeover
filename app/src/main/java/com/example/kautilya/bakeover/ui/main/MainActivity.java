@@ -11,9 +11,6 @@ import com.example.kautilya.bakeover.databinding.ActivityMainBinding;
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel, MainNavigator> implements MainNavigator {
 
 
-    enum SELECT_DATA_TYPE {
-        POPULAR, FAV, TOP
-    }
 
 
     @Override
