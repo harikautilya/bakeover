@@ -11,43 +11,69 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/child_margin"
         android:orientation="vertical">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/child_margin"
             android:stretchColumns="*">
 
             <TableRow>
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="0"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@string/ingredient" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="1"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@{ingredent.ingredient}" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="0"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@string/measure" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="1"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@{ingredent.measure}" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="0"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@string/quantity" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_column="1"
+                    android:layout_margin="@dimen/child_margin"
+                    android:layout_weight="1"
                     android:text="@{Float.toString(ingredent.quantity)}" />
             </TableRow>
         </TableLayout>
