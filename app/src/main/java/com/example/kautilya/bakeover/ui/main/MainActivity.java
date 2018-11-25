@@ -3,13 +3,12 @@ package com.example.kautilya.bakeover.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.example.kautilya.bakeover.BR;
 import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
+import com.example.kautilya.bakeover.Base.Classes.BaseRecycleViewAdapter;
 import com.example.kautilya.bakeover.R;
+import com.example.kautilya.bakeover.adapter.SimpleStringAdapter;
 import com.example.kautilya.bakeover.databinding.ActivityMainBinding;
 import com.example.kautilya.bakeover.objects.Recepie;
 import com.example.kautilya.bakeover.ui.receipe.RecipeActivity;
@@ -21,6 +20,8 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel, MainNavigator> implements MainNavigator {
 
+
+    boolean isTablet;
 
     @Override
     public int getLayoutId() {
@@ -40,15 +41,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             data.add(recepie.getName());
         }
 
-        getViewDataBinding().list.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data));
-        getViewDataBinding().list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-                intent.putExtra(Constants.IntentContants.RECIPE_ID, Utils.getData(MainActivity.this).get(position).getId());
-                startActivity(intent);
-            }
-        });
+        if (getViewDataBinding().contentMain.itemDetailContainer == null) {
+            isTablet = false;
+        }
+
+        getViewDataBinding().contentMain.list.setAdapter(
+                new SimpleStringAdapter(data, this, new BaseRecycleViewAdapter.ItemClickListener<String>() {
+                    @Override
+                    public void onItemClick(String object, int position) {
+                        if (isTablet) {
+
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+                            intent.putExtra(Constants.IntentContants.RECIPE_ID, Utils.getData(MainActivity.this).get(position).getId());
+                            startActivity(intent);
+                        }
+                    }
+
+                }));
+
 
     }
 

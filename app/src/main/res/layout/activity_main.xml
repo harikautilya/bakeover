@@ -27,10 +27,9 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ListView
-                android:layout_width="match_parent"
-                android:id="@+id/list"
-                android:layout_height="wrap_content" />
+            <include
+                android:id="@+id/content_main"
+                layout="@layout/content_main" />
 
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>

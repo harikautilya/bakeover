@@ -28,13 +28,26 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewAdapter
     private boolean isLoading;
 
 
+    public BaseRecycleViewAdapter(List<T> data, Context context) {
+        this(data, context, false, null, null);
+    }
+
+    public BaseRecycleViewAdapter(List<T> data, Context context, ItemClickListener<T> onClickListener) {
+        this(data, context, false, onClickListener, null, null);
+    }
+
+    public BaseRecycleViewAdapter(List<T> data, Context context, boolean filterable) {
+        this(data, context, filterable, null, null);
+    }
+
+    public BaseRecycleViewAdapter(List<T> data, Context context, boolean filterable, ItemClickListener<T> onClickListener) {
+        this(data, context, filterable, onClickListener, null, null);
+    }
+
+
     public BaseRecycleViewAdapter(List<T> data, Context context, boolean filterable, OnLoadMoreListener onLoadMoreListener, RecyclerView recyclerView) {
-        this.data = data;
-        this.context = context;
-        this.recyclerView = recyclerView;
-        this.filterable = filterable;
-        this.onLoadMoreListener = onLoadMoreListener;
-        init();
+        this(data, context, filterable, null, onLoadMoreListener, recyclerView);
+
     }
 
 
@@ -111,7 +124,7 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewAdapter
     }
 
     public interface ItemClickListener<T> {
-        void onItemClick(T object);
+        void onItemClick(T object,int position);
     }
 
     private void init() {
