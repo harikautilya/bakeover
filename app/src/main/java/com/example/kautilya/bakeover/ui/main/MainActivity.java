@@ -48,13 +48,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void init(@Nullable Bundle savedInstanceState) {
 
         final List<String> data = new ArrayList<>();
-        RecyclerView recyclerView = findViewById(R.id.list);
+        RecyclerView recyclerView;
         for (Recepie recepie : Utils.getData(this)) {
             data.add(recepie.getName());
         }
         isTablet = false;
         if (findViewById(R.id.item_detail_container) != null) {
             isTablet = true;
+            recyclerView = findViewById(R.id.list);
+        } else {
+            recyclerView = findViewById(R.id.content_main);
         }
 
 

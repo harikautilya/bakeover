@@ -5,5 +5,7 @@
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:id="@+id/simple_string"
+        android:layout_margin="@dimen/child_margin"
+        android:padding="20dp"
         android:layout_height="wrap_content" />
 </layout>
