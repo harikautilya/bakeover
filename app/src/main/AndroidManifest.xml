@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".ui.receipe.RecipeActivity" />
         <activity android:name=".ui.step.StepActivity" />
-        <activity android:name=".ui.desc.StepDescFragment" />
     </application>
 
 </manifest>

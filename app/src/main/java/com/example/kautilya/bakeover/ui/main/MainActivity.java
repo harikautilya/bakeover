@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             isTablet = true;
             recyclerView = findViewById(R.id.list);
         } else {
-            recyclerView = findViewById(R.id.content_main);
+            recyclerView = findViewById(R.id.simple_list);
         }
 
 
