@@ -9,6 +9,7 @@
     </data>
 
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nested_scroll_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -17,7 +18,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
+
+            <Button
+                android:id="@+id/view_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/child_margin"
+                android:text="@string/view_steps" />
 
             <ImageView
                 android:id="@+id/image"
@@ -43,13 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/child_margin" />
-
-            <Button
-                android:id="@+id/view_steps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/child_margin"
-                android:text="@string/view_steps" />
 
 
         </LinearLayout>
