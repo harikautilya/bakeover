@@ -2,12 +2,11 @@ package com.example.kautilya.bakeover.ui.desc;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.kautilya.bakeover.BR;
-import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
+import com.example.kautilya.bakeover.Base.Classes.BaseFragment;
 import com.example.kautilya.bakeover.R;
 import com.example.kautilya.bakeover.databinding.ItemStepDescBinding;
 import com.example.kautilya.bakeover.objects.Steps;
@@ -22,15 +21,15 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
-public class StepDescActivity extends BaseActivity<ItemStepDescBinding, StepDescViewModel, StepDescNavigator> implements StepDescNavigator {
+public class StepDescFragment extends BaseFragment<ItemStepDescBinding, StepDescViewModel, StepDescNavigator> implements StepDescNavigator {
 
 
     private void intilizePlayer(String videourl) {
         Uri mediaUri = Uri.parse(videourl);
 
-        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(this);
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "BakeOver"));
+        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(getContext());
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getContext(),
+                Util.getUserAgent(getContext(), "BakeOver"));
 
         MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(mediaUri);
@@ -47,30 +46,39 @@ public class StepDescActivity extends BaseActivity<ItemStepDescBinding, StepDesc
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         relasePlayer();
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.item_step_desc;
-    }
-
-    @Override
-    public int getViewModelId() {
+    public int getBindingVariable() {
         return BR.desc_view_model;
     }
 
     @Override
-    public void init(@Nullable Bundle savedInstanceState) {
+    public int getLayoutId() {
+        return R.layout.item_step_desc;
+    }
 
-        final int value = (int) getIntent().getExtras().get(Constants.IntentContants.RECIPE_ID);
-        final int step = (int) getIntent().getExtras().get(Constants.IntentContants.STEP_ID);
+    @Override
+    public void init(View view, Bundle savedInstances) {
 
-        Steps steps = Utils.getRecepieById(this, value).getSteps().get(step);
+    }
 
-        setTitle(Utils.getRecepieById(StepDescActivity.this, value).getName());
+    @Override
+    public int getColor() {
+        return 0;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final int value = (int) getArguments().get(Constants.IntentContants.RECIPE_ID);
+        final int step = (int) getArguments().get(Constants.IntentContants.STEP_ID);
+
+        Steps steps = Utils.getRecepieById(getContext(), value).getSteps().get(step);
 
         if (!steps.getDescription().equals("")) {
             getViewDataBinding().stepDesc.setText(steps.getDescription());
@@ -86,7 +94,7 @@ public class StepDescActivity extends BaseActivity<ItemStepDescBinding, StepDesc
 
         if (!steps.getThumbnailurl().equals("")) {
 
-            Picasso.with(this)
+            Picasso.with(getContext())
                     .load(steps.getThumbnailurl())
                     .into(getViewDataBinding().stepImage);
 
@@ -99,7 +107,7 @@ public class StepDescActivity extends BaseActivity<ItemStepDescBinding, StepDesc
 
                 intilizePlayer(steps.getVideourl());
             } catch (Exception e) {
-                Toast.makeText(this, "No Media found", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "No Media found", Toast.LENGTH_LONG).show();
             }
 
         } else {

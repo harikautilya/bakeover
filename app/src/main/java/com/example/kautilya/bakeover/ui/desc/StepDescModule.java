@@ -12,8 +12,8 @@ public class StepDescModule {
 
 
     @Provides
-    StepDescNavigator provideStepDescNavigator(StepDescActivity stepDescActivity) {
-        return stepDescActivity;
+    StepDescNavigator provideStepDescNavigator(StepDescFragment stepDescFragment) {
+        return stepDescFragment;
     }
 
     @Provides

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-
 import com.example.kautilya.bakeover.Base.Classes.BaseFragment;
 
 import java.util.ArrayList;
@@ -46,6 +45,8 @@ public class PageFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         super.getPageTitle(position);
-        return pageTitles.get(position);
+        if (pageTitles != null)
+            return pageTitles.get(position);
+        return "";
     }
 }

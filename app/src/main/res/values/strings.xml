@@ -7,4 +7,7 @@
     <string name="measure">Measure</string>
     <string name="ingredients_required">Ingredients Required</string>
     <string name="view_steps">View Steps</string>
+    <string name="Servings">Servings %d</string>
+    <string name="back">Back</string>
+    <string name="next">next</string>
 </resources>

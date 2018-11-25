@@ -10,13 +10,10 @@ import com.example.kautilya.bakeover.BR;
 import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
 import com.example.kautilya.bakeover.R;
 import com.example.kautilya.bakeover.databinding.ActivityRecepieBinding;
-import com.example.kautilya.bakeover.objects.Ingredients;
 import com.example.kautilya.bakeover.ui.step.StepActivity;
 import com.example.kautilya.bakeover.utils.Constants;
 import com.example.kautilya.bakeover.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class RecipeActivity extends BaseActivity<ActivityRecepieBinding, RecipeViewModel, RecipeNavigator> implements RecipeNavigator {
     @Override
@@ -33,11 +30,14 @@ public class RecipeActivity extends BaseActivity<ActivityRecepieBinding, RecipeV
     public void init(@Nullable Bundle savedInstanceState) {
         final int value = (int) getIntent().getExtras().get(Constants.IntentContants.RECIPE_ID);
 
-        final List<String> data = new ArrayList<>();
-        for (Ingredients ingredients : Utils.getRecepieById(RecipeActivity.this, value).getIngredients()) {
-            data.add(ingredients.getIngredient() + " - > " + ingredients.getMeasure() + " - > " + ingredients.getQuantity());
-        }
+
         setTitle(Utils.getRecepieById(RecipeActivity.this, value).getName());
+        if (!Utils.getRecepieById(RecipeActivity.this, value).getImage().equals(""))
+            Picasso.with(this)
+                    .load(Utils.getRecepieById(RecipeActivity.this, value).getImage())
+                    .into(getViewDataBinding().image);
+        getViewDataBinding().servings.setText(String.format(getString(R.string.Servings), Utils.getRecepieById(RecipeActivity.this, value).getServings()));
+
         getViewDataBinding().ingredents.setLayoutManager(new LinearLayoutManager(this));
         getViewDataBinding().ingredents.setAdapter(new IngredientsAdapter(Utils.getRecepieById(RecipeActivity.this, value).getIngredients(), this, false, null, null));
         getViewDataBinding().viewSteps.setOnClickListener(new View.OnClickListener() {

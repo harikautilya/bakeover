@@ -1,25 +1,35 @@
 package com.example.kautilya.bakeover.ui.step;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.example.kautilya.bakeover.BR;
 import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
+import com.example.kautilya.bakeover.Base.Classes.BaseFragment;
 import com.example.kautilya.bakeover.R;
+import com.example.kautilya.bakeover.adapter.PageFragmentAdapter;
 import com.example.kautilya.bakeover.databinding.ActivityStepBinding;
-import com.example.kautilya.bakeover.ui.desc.StepDescActivity;
-import com.example.kautilya.bakeover.ui.receipe.RecipeActivity;
+import com.example.kautilya.bakeover.ui.desc.StepDescFragment;
 import com.example.kautilya.bakeover.utils.Constants;
 import com.example.kautilya.bakeover.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+
 public class StepActivity extends BaseActivity<ActivityStepBinding, StepViewModel, StepNavigator> implements StepNavigator {
+    @Inject
+    DispatchingAndroidInjector<Fragment> androidInjector;
+
+    int currentPage;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_step;
@@ -33,24 +43,60 @@ public class StepActivity extends BaseActivity<ActivityStepBinding, StepViewMode
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
         final int value = (int) getIntent().getExtras().get(Constants.IntentContants.RECIPE_ID);
-
-        final List<String> data = new ArrayList<>();
-        for (int i = 0; i < Utils.getRecepieById(this, value).getSteps().size(); i++) {
-            data.add("Step " + i);
+        setTitle(Utils.getRecepieById(StepActivity.this, value).getName());
+        currentPage = 0;
+        final List<BaseFragment> baseFragmentList = new ArrayList<>();
+        for (int i = 0; i < Utils.getRecepieById(StepActivity.this, value).getSteps().size(); i++) {
+            Bundle args = new Bundle();
+            args.putInt(Constants.IntentContants.RECIPE_ID, value);
+            args.putInt(Constants.IntentContants.STEP_ID, i);
+            baseFragmentList.add((BaseFragment) StepDescFragment.instantiate(this, StepDescFragment.class.getName(), args));
         }
 
-        setTitle(Utils.getRecepieById(StepActivity.this, value).getName());
-        getViewDataBinding().steps.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data));
-        getViewDataBinding().steps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        getViewDataBinding().steps.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(), baseFragmentList, null));
+        getViewDataBinding().next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(StepActivity.this, StepDescActivity.class);
-                intent.putExtra(Constants.IntentContants.RECIPE_ID, value);
-                intent.putExtra(Constants.IntentContants.STEP_ID, position);
-                startActivity(intent);
+            public void onClick(View view) {
+                if (currentPage == (baseFragmentList.size() - 1)) {
+                    return;
+                }
+                currentPage++;
+
+                getViewDataBinding().steps.setCurrentItem(currentPage);
+            }
+        });
+        getViewDataBinding().back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentPage == 0) {
+                    return;
+                }
+                currentPage--;
+                getViewDataBinding().steps.setCurrentItem(currentPage);
             }
         });
 
+        getViewDataBinding().steps.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return androidInjector;
     }
 }
