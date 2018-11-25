@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="desc_view_model"
+            type="com.example.kautilya.bakeover.ui.desc.StepDescViewModel" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/step_short_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:id="@+id/step_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/step_video"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/step_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

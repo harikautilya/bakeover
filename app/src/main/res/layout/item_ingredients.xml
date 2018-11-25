@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="ingredent"
+            type="com.example.kautilya.bakeover.objects.Ingredients" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="0"
+                    android:text="@string/ingredient" />
+
+                <TextView
+                    android:layout_column="1"
+                    android:text="@{ingredent.ingredient}" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="0"
+                    android:text="@string/measure" />
+
+                <TextView
+                    android:layout_column="1"
+                    android:text="@{ingredent.measure}" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="0"
+                    android:text="@string/quantity" />
+
+                <TextView
+                    android:layout_column="1"
+                    android:text="@{Float.toString(ingredent.quantity)}" />
+            </TableRow>
+        </TableLayout>
+
+
+    </LinearLayout>
+</layout>

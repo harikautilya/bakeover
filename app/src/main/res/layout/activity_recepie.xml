@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="recepie_view_model"
+            type="com.example.kautilya.bakeover.ui.receipe.RecipeViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/child_margin"
+                android:text="@string/ingredients_required" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ingredents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/child_margin" />
+
+            <Button
+                android:id="@+id/view_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/child_margin"
+                android:text="@string/view_steps" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

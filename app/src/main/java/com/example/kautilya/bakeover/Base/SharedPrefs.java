@@ -3,7 +3,8 @@ package com.example.kautilya.bakeover.Base;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.movies.book.App;
+
+import com.example.kautilya.bakeover.App;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

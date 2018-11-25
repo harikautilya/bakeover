@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Recepie {
+public  class Recepie {
 
     @Expose
     @SerializedName("image")
@@ -73,5 +73,6 @@ public class Recepie {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }

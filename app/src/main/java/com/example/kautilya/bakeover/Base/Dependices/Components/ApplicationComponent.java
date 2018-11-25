@@ -3,14 +3,15 @@ package com.example.kautilya.bakeover.Base.Dependices.Components;
 import android.app.Application;
 import android.content.Context;
 
-import com.movies.book.App;
-import com.movies.book.Base.DBHelper;
-import com.movies.book.Base.DataManager;
-import com.movies.book.Base.Dependices.ActivityBuilder;
-import com.movies.book.Base.Dependices.Modules.ApplicationModule;
-import com.movies.book.Base.SharedPrefs;
-import com.movies.book.Base.annotations.ApplicationContext;
-import com.movies.book.storage.BaseDataPackage;
+
+import com.example.kautilya.bakeover.App;
+import com.example.kautilya.bakeover.Base.DBHelper;
+import com.example.kautilya.bakeover.Base.DataManager;
+import com.example.kautilya.bakeover.Base.Dependices.ActivityBuilder;
+import com.example.kautilya.bakeover.Base.Dependices.Modules.ApplicationModule;
+import com.example.kautilya.bakeover.Base.SharedPrefs;
+import com.example.kautilya.bakeover.Base.annotations.ApplicationContext;
+import com.example.kautilya.bakeover.storage.BaseDataPackage;
 
 import javax.inject.Singleton;
 

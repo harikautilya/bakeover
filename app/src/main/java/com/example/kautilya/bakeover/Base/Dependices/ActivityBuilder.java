@@ -1,9 +1,14 @@
 package com.example.kautilya.bakeover.Base.Dependices;
 
 
-
+import com.example.kautilya.bakeover.ui.desc.StepDescActivity;
+import com.example.kautilya.bakeover.ui.desc.StepDescModule;
 import com.example.kautilya.bakeover.ui.main.MainActivity;
 import com.example.kautilya.bakeover.ui.main.MainModule;
+import com.example.kautilya.bakeover.ui.receipe.RecipeActivity;
+import com.example.kautilya.bakeover.ui.receipe.RecipeModule;
+import com.example.kautilya.bakeover.ui.step.StepActivity;
+import com.example.kautilya.bakeover.ui.step.StepModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -18,6 +23,13 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = MainModule.class)
     abstract MainActivity provideMainActivity();
 
+    @ContributesAndroidInjector(modules = RecipeModule.class)
+    abstract RecipeActivity provideRecipeActivity();
 
+    @ContributesAndroidInjector(modules = StepModule.class)
+    abstract StepActivity provideStepActivity();
+
+    @ContributesAndroidInjector(modules = StepDescModule.class)
+    abstract StepDescActivity provideStepDescActivity();
 
 }

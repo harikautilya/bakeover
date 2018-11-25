@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.movies.book.utils.Utils;
+import com.example.kautilya.bakeover.utils.Utils;
 
 import javax.inject.Inject;
 

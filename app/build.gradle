@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.kautilya.bakeover"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -18,6 +18,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -58,12 +61,11 @@ dependencies {
     implementation deps.android.support.cardView
 
     implementation 'com.android.support:multidex:1.0.3'
-
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation deps.junit
     androidTestImplementation deps.android.support.test.runner
     androidTestImplementation deps.android.support.test.espressoCore
-
 
 
     implementation deps.rx.android

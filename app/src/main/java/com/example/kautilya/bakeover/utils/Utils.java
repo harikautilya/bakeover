@@ -9,6 +9,9 @@ import com.example.kautilya.bakeover.objects.Recepie;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,14 +28,25 @@ public class Utils {
         return progressDialog;
     }
 
-    static List<Recepie> getData(Context context) {
+    public static List<Recepie> getData(Context context) {
 
-        return new Gson().fromJson(context.getString(R.string.data), new TypeToken<List<Recepie>>() {
+
+       /* List<Recepie> recepies = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(context.getString(R.string.data_final));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                recepies.add(new Gson().fromJson(jsonArray.get(i).toString(), Recepie.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recepies;*/
+       return new Gson().fromJson(context.getString(R.string.data_final), new TypeToken<List<Recepie>>() {
         }.getType());
     }
 
 
-    static Recepie getRecepieById(Context context, long id) {
+    public static Recepie getRecepieById(Context context, long id) {
         Recepie currentRecepie = null;
         for (Recepie recepie : getData(context)) {
             if (recepie.getId() == id) {

@@ -1,12 +1,14 @@
 package com.example.kautilya.bakeover.Base.Dependices;
 
-import com.movies.book.Base.Classes.BaseActivity;
-import com.movies.book.Base.Classes.BaseNavigator;
-import com.movies.book.Base.DataManager;
-import com.movies.book.Base.rx.SchedulerProvider;
-import com.movies.book.storage.BaseDataPackage;
 
-public interface BaseModule<T, A extends BaseActivity,L extends BaseNavigator> {
+import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
+import com.example.kautilya.bakeover.Base.Classes.BaseNavigator;
+import com.example.kautilya.bakeover.Base.Classes.BaseViewModel;
+import com.example.kautilya.bakeover.Base.DataManager;
+import com.example.kautilya.bakeover.Base.rx.SchedulerProvider;
+import com.example.kautilya.bakeover.storage.BaseDataPackage;
+
+public interface BaseModule<T extends BaseViewModel, A extends BaseActivity, L extends BaseNavigator> {
 
 
     T provideViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, BaseDataPackage baseDataPackage);

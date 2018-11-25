@@ -4,11 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.movies.book.App;
-import com.movies.book.Base.annotations.ApplicationContext;
-import com.movies.book.Base.annotations.DatabaseInfo;
-import com.movies.book.Base.rx.AppSchedulerProvider;
-import com.movies.book.Base.rx.SchedulerProvider;
+
+import com.example.kautilya.bakeover.App;
+import com.example.kautilya.bakeover.Base.annotations.ApplicationContext;
+import com.example.kautilya.bakeover.Base.annotations.DatabaseInfo;
+import com.example.kautilya.bakeover.Base.rx.AppSchedulerProvider;
+import com.example.kautilya.bakeover.Base.rx.SchedulerProvider;
 
 import dagger.Module;
 import dagger.Provides;
