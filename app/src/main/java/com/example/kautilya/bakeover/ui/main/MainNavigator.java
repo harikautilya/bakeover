@@ -4,6 +4,8 @@ import com.example.kautilya.bakeover.Base.Classes.BaseNavigator;
 
 import java.util.List;
 
-public interface MainNavigator  extends BaseNavigator {
+import dagger.android.support.HasSupportFragmentInjector;
+
+public interface MainNavigator  extends BaseNavigator, HasSupportFragmentInjector {
 
 }

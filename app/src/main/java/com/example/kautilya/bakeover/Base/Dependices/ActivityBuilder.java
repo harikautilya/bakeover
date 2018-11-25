@@ -8,6 +8,7 @@ import com.example.kautilya.bakeover.ui.receipe.RecipeActivity;
 import com.example.kautilya.bakeover.ui.receipe.RecipeModule;
 import com.example.kautilya.bakeover.ui.step.StepActivity;
 import com.example.kautilya.bakeover.ui.step.StepModule;
+import com.example.kautilya.bakeover.ui.tablet.TabletProvider;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -19,7 +20,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = MainModule.class)
+    @ContributesAndroidInjector(modules = {MainModule.class, TabletProvider.class, StepDescProvider.class})
     abstract MainActivity provideMainActivity();
 
     @ContributesAndroidInjector(modules = RecipeModule.class)

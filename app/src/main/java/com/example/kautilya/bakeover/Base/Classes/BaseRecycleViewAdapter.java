@@ -104,7 +104,7 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewAdapter
                 @Override
                 public void onClick(View v) {
                     if (onClickListener != null)
-                        onClickListener.onItemClick(object);
+                        onClickListener.onItemClick(object, getAdapterPosition());
                 }
             });
         }
@@ -124,7 +124,7 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewAdapter
     }
 
     public interface ItemClickListener<T> {
-        void onItemClick(T object,int position);
+        void onItemClick(T object, int position);
     }
 
     private void init() {
