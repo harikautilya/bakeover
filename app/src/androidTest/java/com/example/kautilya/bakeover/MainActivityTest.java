@@ -46,6 +46,7 @@ public class MainActivityTest {
         onView(withId(R.id.back)).perform(click());
     }
 
+    // As on data is not working with the recycler this method will find out the child posotion of recycler view
     public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
         return new TypeSafeMatcher<View>() {
             @Override
