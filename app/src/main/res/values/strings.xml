@@ -10,4 +10,7 @@
     <string name="Servings">Servings %d</string>
     <string name="back">Back</string>
     <string name="next">next</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_string">Some random data</string>
 </resources>

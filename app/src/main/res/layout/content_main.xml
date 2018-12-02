@@ -4,6 +4,6 @@
     android:name="com.example.kautilya.bakeover.ui.master.ItemListFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layoutManager="LinearLayoutManager" />
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 

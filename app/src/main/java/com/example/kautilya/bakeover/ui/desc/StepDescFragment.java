@@ -2,6 +2,7 @@ package com.example.kautilya.bakeover.ui.desc;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import com.squareup.picasso.Picasso;
 public class StepDescFragment extends BaseFragment<ItemStepDescBinding, StepDescViewModel, StepDescNavigator> implements StepDescNavigator {
 
 
+    private long currentPosition;
+
     private void intilizePlayer(String videourl) {
         Uri mediaUri = Uri.parse(videourl);
 
@@ -34,21 +37,35 @@ public class StepDescFragment extends BaseFragment<ItemStepDescBinding, StepDesc
         MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(mediaUri);
         player.prepare(videoSource);
+        if (currentPosition != -1) {
+            if (player.getPlayWhenReady()) {
+                player.seekTo(currentPosition);
+            }
+        }
         getViewDataBinding().stepVideo.setPlayer(player);
     }
 
 
-    void relasePlayer() {
+    void releasePlayer() {
         if (getViewDataBinding().stepVideo.getPlayer() != null) {
+            currentPosition = getViewDataBinding().stepVideo.getPlayer().getCurrentPosition();
             getViewDataBinding().stepVideo.getPlayer().stop();
             getViewDataBinding().stepVideo.getPlayer().release();
         }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        relasePlayer();
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (getViewDataBinding().stepVideo.getPlayer() != null) {
+            outState.putLong("position", currentPosition = getViewDataBinding().stepVideo.getPlayer().getCurrentPosition());
+        }
     }
 
     @Override
@@ -104,6 +121,9 @@ public class StepDescFragment extends BaseFragment<ItemStepDescBinding, StepDesc
         if (!steps.getVideourl().equals("")) {
 
             try {
+                if (savedInstanceState != null) {
+                    currentPosition = savedInstanceState.getLong("position", -1);
+                }
 
                 intilizePlayer(steps.getVideourl());
             } catch (Exception e) {
