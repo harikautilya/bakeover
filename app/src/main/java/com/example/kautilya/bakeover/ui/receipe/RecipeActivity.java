@@ -11,6 +11,7 @@ import com.example.kautilya.bakeover.Base.Classes.BaseActivity;
 import com.example.kautilya.bakeover.R;
 import com.example.kautilya.bakeover.databinding.ActivityRecepieBinding;
 import com.example.kautilya.bakeover.ui.step.StepActivity;
+import com.example.kautilya.bakeover.ui.steplist.StepListActivity;
 import com.example.kautilya.bakeover.utils.Constants;
 import com.example.kautilya.bakeover.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,7 @@ public class RecipeActivity extends BaseActivity<ActivityRecepieBinding, RecipeV
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(RecipeActivity.this, StepActivity.class);
+                Intent intent = new Intent(RecipeActivity.this, StepListActivity.class);
                 intent.putExtra(Constants.IntentContants.RECIPE_ID, value);
                 startActivity(intent);
             }

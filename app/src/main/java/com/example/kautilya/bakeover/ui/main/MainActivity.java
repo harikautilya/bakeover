@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.kautilya.bakeover.BR;
@@ -15,7 +14,7 @@ import com.example.kautilya.bakeover.adapter.SimpleStringAdapter;
 import com.example.kautilya.bakeover.databinding.ActivityMainBinding;
 import com.example.kautilya.bakeover.objects.Recepie;
 import com.example.kautilya.bakeover.ui.receipe.RecipeActivity;
-import com.example.kautilya.bakeover.ui.tablet.TabletFragment;
+import com.example.kautilya.bakeover.ui.stepvideo.StepVideoActivity;
 import com.example.kautilya.bakeover.utils.Constants;
 import com.example.kautilya.bakeover.utils.Utils;
 
@@ -33,6 +32,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     boolean isTablet;
+    private SimpleStringAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -46,38 +46,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
-
-        final List<String> data = new ArrayList<>();
         RecyclerView recyclerView;
+
+        isTablet = false;
+        recyclerView = findViewById(R.id.simple_list);
+
+        if (recyclerView == null) {
+            isTablet = true;
+            recyclerView = findViewById(R.id.grid);
+        }
+        final List<String> data = new ArrayList<>();
         for (Recepie recepie : Utils.getData(this)) {
             data.add(recepie.getName());
-        }
-        isTablet = false;
-        if (findViewById(R.id.item_detail_container) != null) {
-            isTablet = true;
-            recyclerView = findViewById(R.id.list);
-        } else {
-            recyclerView = findViewById(R.id.simple_list);
         }
 
 
         recyclerView.setAdapter(
-                new SimpleStringAdapter(data, this, new BaseRecycleViewAdapter.ItemClickListener<String>() {
+                adapter = new SimpleStringAdapter(data, this, new BaseRecycleViewAdapter.ItemClickListener<String>() {
                     @Override
                     public void onItemClick(String object, int position) {
+                        Intent intent;
                         if (isTablet) {
-                            Bundle args = new Bundle();
-                            args.putInt(Constants.IntentContants.RECIPE_ID, Utils.getData(MainActivity.this).get(position).getId());
-
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.item_detail_container, TabletFragment.instantiate(MainActivity.this, TabletFragment.class.getName(), args));
-                            transaction.commit();
-
+                            intent = new Intent(MainActivity.this, StepVideoActivity.class);
                         } else {
-                            Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-                            intent.putExtra(Constants.IntentContants.RECIPE_ID, Utils.getData(MainActivity.this).get(position).getId());
-                            startActivity(intent);
+                            intent = new Intent(MainActivity.this, RecipeActivity.class);
+
                         }
+                        intent.putExtra(Constants.IntentContants.RECIPE_ID, Utils.getData(MainActivity.this).get(position).getId());
+                        startActivity(intent);
                     }
 
                 }));
@@ -89,4 +85,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return androidInjector;
     }
+
+
 }

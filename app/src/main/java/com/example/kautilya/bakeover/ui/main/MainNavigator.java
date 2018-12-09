@@ -6,6 +6,6 @@ import java.util.List;
 
 import dagger.android.support.HasSupportFragmentInjector;
 
-public interface MainNavigator  extends BaseNavigator, HasSupportFragmentInjector {
+public interface MainNavigator  extends BaseNavigator, HasSupportFragmentInjector{
 
 }

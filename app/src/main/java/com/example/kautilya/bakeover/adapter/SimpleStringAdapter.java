@@ -14,15 +14,22 @@ import java.util.List;
 
 public class SimpleStringAdapter extends BaseRecycleViewAdapter<String, SimpleStringAdapter.SimpleStringHolder> {
 
+    int position;
 
     public SimpleStringAdapter(List<String> data, Context context, ItemClickListener<String> onClickListener) {
         super(data, context, onClickListener);
+        position = -1;
     }
 
     @NonNull
     @Override
     public SimpleStringHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new SimpleStringHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_string, viewGroup, false));
+    }
+
+    public void setCurrentSelected(int position) {
+        this.position = position;
+        notifyDataSetChanged();
     }
 
     class SimpleStringHolder extends BaseRecycleViewAdapter<String, SimpleStringAdapter.SimpleStringHolder>.BaseViewHolder<ItemStringBinding> {
@@ -35,6 +42,12 @@ public class SimpleStringAdapter extends BaseRecycleViewAdapter<String, SimpleSt
         protected void bind(String object) {
             super.bind(object);
             getViewDataBinding().simpleString.setText(object);
+            if (getAdapterPosition() == position) {
+                getViewDataBinding().simpleString.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+            } else {
+                getViewDataBinding().simpleString.setTextColor(context.getResources().getColor(android.R.color.black));
+
+            }
         }
     }
 }

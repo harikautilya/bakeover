@@ -39,7 +39,7 @@ public class MainActivityTest {
 
         onView(withId(R.id.view_steps)).check(matches(isDisplayed())).perform(click());
 
-
+        onView(withId(R.id.step_list_desc)).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.steps)).perform(swipeRight());
         onView(withId(R.id.next)).perform(click());
         onView(withId(R.id.back)).perform(click());
@@ -48,13 +48,14 @@ public class MainActivityTest {
 
     @Test
     public void testTablet() {
+
+
+        onView(nthChildOf(withId(R.id.grid), 0)).check(matches(withText("Nutella Pie")));
+        onView(nthChildOf(withId(R.id.grid), 0)).perform(click());
+
         onView(withId(R.id.item_detail_container)).check(matches(isDisplayed()));
-        onView(nthChildOf(withId(R.id.list), 0)).check(matches(withText("Nutella Pie")));
-
+        onView(withId(R.id.list)).check(matches(isDisplayed()));
         onView(nthChildOf(withId(R.id.list), 0)).perform(click());
-
-        onView(withId(R.id.steps)).check(matches(isDisplayed()));
-
 
         onView(withId(R.id.steps)).perform(swipeRight());
         onView(withId(R.id.next)).perform(click());

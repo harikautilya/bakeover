@@ -1,5 +1,6 @@
 package com.example.kautilya.bakeover.ui.tablet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import com.example.kautilya.bakeover.R;
 import com.example.kautilya.bakeover.adapter.PageFragmentAdapter;
 import com.example.kautilya.bakeover.databinding.FragmentTabletBinding;
 import com.example.kautilya.bakeover.ui.desc.StepDescFragment;
+import com.example.kautilya.bakeover.ui.main.MainActivity;
+import com.example.kautilya.bakeover.ui.main.TableFragmentInteraction;
 import com.example.kautilya.bakeover.ui.receipe.IngredientsAdapter;
 import com.example.kautilya.bakeover.utils.Constants;
 import com.example.kautilya.bakeover.utils.Utils;
@@ -21,6 +24,7 @@ import java.util.List;
 
 public class TabletFragment extends BaseFragment<FragmentTabletBinding, TableViewModel, TabletNavigator> implements TabletNavigator {
     private int currentPage;
+    private TableFragmentInteraction tableFragmentInteraction;
 
     @Override
     public int getBindingVariable() {
@@ -35,6 +39,7 @@ public class TabletFragment extends BaseFragment<FragmentTabletBinding, TableVie
     @Override
     public void init(View view, Bundle savedInstances) {
         final int value = (int) getArguments().getInt(Constants.IntentContants.RECIPE_ID);
+        final int position = (int) getArguments().getInt(Constants.IntentContants.POSITION);
         if (!Utils.getRecepieById(getContext(), value).getImage().equals("")) {
             Picasso.with(getContext())
                     .load(Utils.getRecepieById(getContext(), value).getImage())
@@ -76,6 +81,8 @@ public class TabletFragment extends BaseFragment<FragmentTabletBinding, TableVie
             }
         });
 
+        getViewDataBinding().steps.setCurrentItem(position);
+
         getViewDataBinding().steps.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -84,6 +91,9 @@ public class TabletFragment extends BaseFragment<FragmentTabletBinding, TableVie
 
             @Override
             public void onPageSelected(int position) {
+                if (tableFragmentInteraction != null) {
+                    tableFragmentInteraction.videoMoved(position);
+                }
                 currentPage = position;
 
             }
@@ -93,6 +103,16 @@ public class TabletFragment extends BaseFragment<FragmentTabletBinding, TableVie
 
             }
         });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (getActivity() instanceof TableFragmentInteraction) {
+            tableFragmentInteraction = (TableFragmentInteraction) getActivity();
+        } else {
+            throw new IllegalStateException("Wrong parent call the fragment");
+        }
     }
 
     @Override

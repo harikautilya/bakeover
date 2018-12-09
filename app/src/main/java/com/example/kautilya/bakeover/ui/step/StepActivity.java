@@ -43,6 +43,7 @@ public class StepActivity extends BaseActivity<ActivityStepBinding, StepViewMode
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
         final int value = (int) getIntent().getExtras().get(Constants.IntentContants.RECIPE_ID);
+        final int position = (int) getIntent().getExtras().get(Constants.IntentContants.POSITION);
         setTitle(Utils.getRecepieById(StepActivity.this, value).getName());
         currentPage = 0;
         final List<BaseFragment> baseFragmentList = new ArrayList<>();
@@ -54,6 +55,7 @@ public class StepActivity extends BaseActivity<ActivityStepBinding, StepViewMode
         }
 
         getViewDataBinding().steps.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(), baseFragmentList, null));
+        getViewDataBinding().steps.setCurrentItem(position);
         getViewDataBinding().next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
